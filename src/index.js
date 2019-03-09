@@ -13,6 +13,6 @@ app.use(userRouter)
 app.use(taskRouter)
 
 
-app.listen(3000, () => {
-    console.log("app listening on port 3000")
+app.listen(port, () => {
+    console.log("app listening on port " + port)
 })
