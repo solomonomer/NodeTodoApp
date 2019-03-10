@@ -7,6 +7,7 @@ router
     .route('/')
     .get(tasksCrud.getTasks)
     .post(tasksCrud.createTask)
+    .put(tasksCrud.updateTask)
     .delete(tasksCrud.deleteTask)
 
 
