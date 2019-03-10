@@ -13,7 +13,6 @@ const getTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
     try {
-
         const tasks = await crudOptions.readFile('./tasks.json');
         var tasksArray = tasks ? JSON.parse(tasks) : [];
         tasksArray.push(req.body);
@@ -25,7 +24,6 @@ const createTask = async (req, res) => {
         res.status(500).send([]);
     }
 }
-
 
 const updateTask = async (req, res) => {
     const updates = Object.keys(req.body);
@@ -47,8 +45,17 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
     try {
-        const task = await Task.findByIdAndDelete(req.params.id)
-        return (!task) ? res.status(404).send() : res.send(task);
+        const tasks = await crudOptions.readFile('./tasks.json');
+        const taskArray = JSON.parse(tasks);
+        const tasksToKeep = taskArray.filter((task) => {
+            return task['description'] !== req.body.description
+        })
+
+        //var tasksArray = tasks ? JSON.parse(tasks) : [];
+        //tasksArray.push(req.body);
+
+        const dataJson = await crudOptions.writeFile('./tasks.json', tasksToKeep, 'utf-8');
+        res.send(dataJson);
     } catch (e) {
         res.status(500).send()
     }
