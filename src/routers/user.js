@@ -1,19 +1,19 @@
-import { Router } from 'express';
-import { getUsers, createUser, getUserById, updateUser, deleteUser } from './services/user';
+//import { Router } from 'express';
+//import { getUsers, createUser, getUserById, updateUser, deleteUser } from './services/user';
 
-const router = Router();
+//const router = Router();
 
-// /api/user
-router
-    .route('/')
-    .get(getUsers)
-    .post(createUser)
+//// /api/user
+//router
+//    .route('/')
+//    .get(getUsers)
+//    .post(createUser)
 
-// /api/user/:id
-router
-    .route('/:id')
-    .get(getUserById)
-    .put(updateUser)
-    .delete(deleteUser)
+//// /api/user/:id
+//router
+//    .route('/:id')
+//    .get(getUserById)
+//    .put(updateUser)
+//    .delete(deleteUser)
 
-export default router;
+//export default router;

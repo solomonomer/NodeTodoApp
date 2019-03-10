@@ -9,11 +9,14 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-register": "^6.26.0"
   },
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
   "author": "",

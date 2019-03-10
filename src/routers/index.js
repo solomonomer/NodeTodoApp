@@ -1,13 +1,10 @@
-import userRouter from './user';
-import taskRouter from './task';
+//const userRoute = require('./user');
+const taskRouter = require('./task');
 
-export const routers = [
+
+module.exports = [
     {
         route: taskRouter,
-        path: '/tasks'
-    },
-    {
-        route: userRouter,
-        path: '/users'
+        path: '/tasks/'
     }
 ]

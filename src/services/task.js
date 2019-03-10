@@ -1,36 +1,33 @@
-import { Task } from './models/task';
+const Task = require('../models/task');
+const crudOptions = require('../utils/crud');
 
-export const getTasks = async (req, res) => {
-    try {
-        const users = await Task.find({});
-        res.send(tasks);
+const getTasks = async (req, res) => {
+    try {       
+        const dataJson = await crudOptions.readFile('./tasks.json');
+        res.send(JSON.parse(dataJson));
     }
     catch (e) {
-        res.status(500).send();
+        res.status(500).send([]);
     }
 }
 
-export const createTask = (req, res) => {
+const createTask = async (req, res) => {
+    try {
 
-    const task = new Task(req.body);
-    task.save().then(() => {
-        res.send(task);
-    }).catch((e) => {
-        res.status(400).send(e)
-    });
+        const tasks = await crudOptions.readFile('./tasks.json');
+        var tasksArray = tasks ? JSON.parse(tasks) : [];
+        tasksArray.push(req.body);
+
+        const dataJson = await crudOptions.writeFile('./tasks.json', tasksArray, 'utf-8');
+        res.send(dataJson);
+    }
+    catch (e) {
+        res.status(500).send([]);
+    }
 }
 
-export const getTaskById = (req, res) => {
-    const _id = req.params.id;
 
-    Task.findById(_id).then((task) => {
-        return (!task) ? res.status(404).send() : res.send(task);
-    }).catch((e) => {
-        res.status(500).send();
-    })
-}
-
-export const updateTask = async (req, res) => {
+const updateTask = async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'email', 'password', 'age'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -48,11 +45,28 @@ export const updateTask = async (req, res) => {
     }
 }
 
-export const deleteTask = async (req, res) => {
+const deleteTask = async (req, res) => {
     try {
         const task = await Task.findByIdAndDelete(req.params.id)
         return (!task) ? res.status(404).send() : res.send(task);
     } catch (e) {
         res.status(500).send()
     }
+}
+
+const getTaskById = (req, res) => {
+    const _id = req.params.id;
+
+    Task.findById(_id).then((task) => {
+        return (!task) ? res.status(404).send() : res.send(task);
+    }).catch((e) => {
+        res.status(500).send();
+    })
+}
+
+module.exports = taskCruds = {
+    getTasks: getTasks,
+    createTask: createTask,
+    updateTask: updateTask,
+    deleteTask: deleteTask
 }

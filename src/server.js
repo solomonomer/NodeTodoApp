@@ -1,4 +1,5 @@
-import express from 'express'; 
+
+import express from 'express';
 import './db/mongoose';
 
 const app = express();
@@ -11,8 +12,6 @@ routers.forEach(route => {
     app.use(route.path, route, route);
 })
 
-export const start = async () => {
-    app.listen(port, () => {
-        console.log("app listening on port ${port}");
-    })
-}
+app.listen(port, () => {
+    console.log("app listening on port ${port}");
+})

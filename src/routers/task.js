@@ -1,19 +1,18 @@
-import { Router } from 'express';
-import { getTasks, createTask, getTaskById, updateTask, deleteTask } from './services/task';
+const express = require('express');
+const router = express.Router();
+const tasksCrud = require('../services/task');
 
-const router = Router();
-
-// /api/task
+// /api/tasks
 router
     .route('/')
-    .get(getTasks)
-    .post(createTask)
+    .get(tasksCrud.getTasks)
+    .post(tasksCrud.createTask)
 
 // /api/task/:id
 router
     .route('/:id')
-    .get(getTaskById)
-    .put(updateTask)
-    .delete(deleteTask)
+    //.get(getTaskById)
+    .put(tasksCrud.updateTask)
+    .delete(tasksCrud.deleteTask)
 
-export default router;
+module.exports = router;
