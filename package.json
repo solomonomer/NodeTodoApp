@@ -8,9 +8,12 @@
     "mongodb": "^3.1.13",
     "validator": "^10.11.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
+  },
   "scripts": {
-    "start": "node src/index.js",
+    "start": "babel-node src/index.js",
     "dev": "nodemon src/index.js"
   },
   "author": "",
